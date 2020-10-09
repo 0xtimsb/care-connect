@@ -49,5 +49,12 @@ const server = app.listen(4000, () => __awaiter(void 0, void 0, void 0, function
 const io = socket_io_1.default(server);
 io.on('connection', socket => {
     console.log('Connected');
+    sendData(socket);
 });
+const sendData = (socket) => {
+    socket.emit('data', Array.from({ length: 8 }, () => Math.floor(Math.random() * 590) + 10));
+    setTimeout(() => {
+        sendData(socket);
+    }, 2000);
+};
 //# sourceMappingURL=index.js.map

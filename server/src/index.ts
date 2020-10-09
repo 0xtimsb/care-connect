@@ -57,4 +57,12 @@ const server = app.listen(4000, async () => {
 const io = socketio(server)
 io.on('connection', socket => {
   console.log('Connected');
+  sendData(socket)
 })
+
+const sendData = (socket) => {
+  socket.emit('data', Array.from({length: 8}, () => Math.floor(Math.random() * 590) + 10))
+  setTimeout(() => {
+    sendData(socket)
+  },2000)
+}
