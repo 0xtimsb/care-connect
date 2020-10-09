@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -32,7 +32,11 @@ const Root = styled.div`
 	position: relative;
 `;
 
-const AppLayout = ({ store, setStore }: any) => {
+const AppLayout = ({ userData, history }: any) => {
+	useEffect(() => {
+		history.push('/');
+	}, []);
+
 	return (
 		<Root>
 			{/* <Switch>

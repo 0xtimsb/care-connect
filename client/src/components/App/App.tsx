@@ -13,19 +13,33 @@ import AuthLayout from 'pages/Auth/AuthLayout';
 import { getCookie } from 'utils/cookie';
 
 const App = () => {
-	const [store, setStore] = useState({
-		userData: null,
-		cookie: getCookie('token'),
-	});
+	const [userData, setUserData] = useState(null);
+	const [cookieData, setCookieData] = useState(getCookie('token'));
+
+	const handleUserData = (data: any) => {
+		setUserData(data);
+	};
+
+	const handleCookieData = () => {
+		setCookieData(getCookie('token'));
+	};
 
 	return (
 		<Router>
 			<GlobalStyle />
 			<Switch>
-				{store.cookie ? (
-					<Route exact render={() => <AppLayout store setStore />} />
+				{cookieData ? (
+					<Route exact render={() => <AppLayout userData={userData} />} />
 				) : (
-					<Route exact render={() => <AuthLayout store setStore />} />
+					<Route
+						exact
+						render={() => (
+							<AuthLayout
+								handleUserData={handleUserData}
+								handleCookieData={handleCookieData}
+							/>
+						)}
+					/>
 				)}
 			</Switch>
 		</Router>

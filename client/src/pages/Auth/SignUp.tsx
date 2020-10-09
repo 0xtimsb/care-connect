@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import styled, { css } from 'styled-components';
+import { withRouter } from 'react-router-dom';
 
 // Styled.
 import Panel from 'styled/Panel';
@@ -10,6 +11,7 @@ import Label from 'styled/Label';
 
 // API
 import axios from 'utils/api';
+import { setCookie } from 'utils/cookie';
 
 interface IFormInput {
 	name: string;
@@ -82,12 +84,15 @@ const Error = styled.label`
 	margin-bottom: 10px;
 `;
 
-const SignUp = ({ store, setStore }: any) => {
+const SignUp = ({ handleUserData, handleCookieData, history }: any) => {
+	const [loading, setLoading] = useState(false);
+
 	const { register, errors, handleSubmit } = useForm<IFormInput>({
 		mode: 'all',
 	});
 
 	const onSubmit = (data: IFormInput) => {
+		setLoading(true);
 		axios
 			.post('signup', {
 				name: data.name,
@@ -99,15 +104,27 @@ const SignUp = ({ store, setStore }: any) => {
 				signupPassword: data.password,
 			})
 			.then((res) => {
-				console.log(res.data);
-				setStore({ ...res.data });
+				history.push('/');
+				setCookie('token', res.data.token);
+				handleCookieData();
+				handleUserData({ ...res.data.userData });
 			})
 			.catch((err) => {
 				console.log(err);
 			});
 	};
 
-	return (
+	useEffect(() => {
+		return () => {
+			setLoading(false); // Cleanup!
+		};
+	}, []);
+
+	return loading ? (
+		<Root>
+			<Header>Loading...</Header>
+		</Root>
+	) : (
 		<Root>
 			<Form onSubmit={handleSubmit(onSubmit)}>
 				<Header>Create an account</Header>
@@ -129,7 +146,7 @@ const SignUp = ({ store, setStore }: any) => {
 					ref={register({
 						required: { value: true, message: 'Email required.' },
 						pattern: {
-							value: /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+							value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
 							message: 'Invalid email address.',
 						},
 					})}
@@ -230,4 +247,4 @@ const SignUp = ({ store, setStore }: any) => {
 	);
 };
 
-export default SignUp;
+export default withRouter(SignUp);

@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import styled from 'styled-components';
+import { withRouter } from 'react-router-dom';
 
 // Pages
 // import LogIn from 'pages/Auth/LogIn';
@@ -18,14 +19,29 @@ const Root = styled.div`
 	align-items: center;
 `;
 
-const AuthLayout = ({ store, setStore }: any) => (
-	<Root>
-		<Switch>
-			<Route exact path={SIGN_UP} render={() => <SignUp store setStore />} />
-			{/* <Route exact path={LOG_IN} render={() => <LogIn store setStore />} /> */}
-			<Redirect to={HOME} />
-		</Switch>
-	</Root>
-);
+const AuthLayout = ({ handleUserData, handleCookieData, history }: any) => {
+	useEffect(() => {
+		history.push('/signup');
+	}, []);
 
-export default AuthLayout;
+	return (
+		<Root>
+			<Switch>
+				<Route
+					exact
+					path={SIGN_UP}
+					render={() => (
+						<SignUp
+							handleUserData={handleUserData}
+							handleCookieData={handleCookieData}
+						/>
+					)}
+				/>
+				{/* <Route exact path={LOG_IN} render={() => <LogIn store setStore />} /> */}
+				<Redirect to={HOME} />
+			</Switch>
+		</Root>
+	);
+};
+
+export default withRouter(AuthLayout);
