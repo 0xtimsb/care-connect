@@ -75,5 +75,4 @@ router.patch('/editprofile/:userid', auth , async (req, res) => {
 });
 
 
-
 export default module.exports = router;
