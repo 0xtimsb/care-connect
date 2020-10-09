@@ -3,6 +3,7 @@ import userRouter from './routes/user';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
+import socketio from 'socket.io'
 const app = express();
 
 // Adding user globally to express.Request
@@ -44,7 +45,7 @@ app.use((_req, res, _next) => {
 });
 
 // Listening to PORT and Connecting to Data Base
-app.listen(4000, async () => {
+const server = app.listen(4000, async () => {
   await mongoose.connect(
     `mongodb+srv://aadi:${process.env.MONGO_PWD}@cluster0.b7dxw.mongodb.net/careconnect?retryWrites=true&w=majority`,
     { useUnifiedTopology: true, useNewUrlParser: true }
@@ -52,3 +53,8 @@ app.listen(4000, async () => {
   console.log('Connected to Database');
   console.log('Listening at PORT 4000');
 });
+
+const io = socketio(server)
+io.on('connection', socket => {
+  console.log('Connected');
+})
