@@ -3,8 +3,12 @@ import userRouter from './routes/user';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
-import socketio from 'socket.io'
+import socketio, { Socket } from 'socket.io'
+import sockRouter from './routes/sock'
 const app = express();
+const httpserver = require('http').createServer(app);
+
+
 
 // Adding user globally to express.Request
 declare global {
@@ -31,8 +35,18 @@ app.use((req: express.Request, res: express.Response, next: express.NextFunction
   return;
 });
 
+const io = socketio(httpserver)
+
+const userSocket = io.of('/user')
+userSocket.on('connection', (socket:Socket)=> {
+  sendData(socket)
+})
+
 // User Route
-app.use('/', userRouter);
+app.use(userRouter);
+
+// Socket Route
+app.use(sockRouter)
 
 // Error handling
 app.use((_req, res, _next) => {
@@ -45,24 +59,18 @@ app.use((_req, res, _next) => {
 });
 
 // Listening to PORT and Connecting to Data Base
-const server = app.listen(4000, async () => {
+httpserver.listen(4000, async () => {
   await mongoose.connect(
     `mongodb+srv://aadi:${process.env.MONGO_PWD}@cluster0.b7dxw.mongodb.net/careconnect?retryWrites=true&w=majority`,
     { useUnifiedTopology: true, useNewUrlParser: true }
-  );
-  console.log('Connected to Database');
-  console.log('Listening at PORT 4000');
-});
-
-const io = socketio(server)
-io.on('connection', socket => {
-  console.log('Connected');
-  sendData(socket)
-})
-
-const sendData = (socket) => {
-  socket.emit('data', Array.from({length: 8}, () => Math.floor(Math.random() * 590) + 10))
-  setTimeout(() => {
-    sendData(socket)
-  },2000)
-}
+    );
+    console.log('Connected to Database');
+    console.log('Listening at PORT 4000');
+  });
+  
+  const sendData = (socket:Socket) => {
+    socket.emit('data', Array.from({length: 8}, () => Math.floor(Math.random() * 590) + 10))
+    setTimeout(() => {
+      sendData(socket)
+    },1000)
+  }
