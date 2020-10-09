@@ -1,17 +1,9 @@
 import styled from 'styled-components';
 
-interface PanelProps {
-	width?: string;
-	padding?: string;
-}
-
-const Panel = styled.div<PanelProps>`
-	${p => p.width && `width: ${p.width}`};
-	${p => p.padding && `padding: ${p.padding}`};
-
+const Panel = styled.div`
 	background: ${p => p.theme.colors.primary.light};
-	border-radius: ${p => p.theme.radius.sm};
 	border: 1px solid ${p => p.theme.colors.border.main};
+	border-radius: 5px;
 `;
 
 export default Panel;

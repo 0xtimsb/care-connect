@@ -1,5 +1,9 @@
 export default {
   colors: {
+    warning: '#FFB818',
+    info: '#4169E1',
+    focus: '#4169E1',
+
     primary: {
       light: '#36393f',
       main: '#2f3136',
@@ -8,7 +12,8 @@ export default {
 
     text: {
       primary: '#ffffff',
-      secondary: '#b9bbbe'
+      secondary: '#b9bbbe',
+      invert: '#222222'
     },
 
     border: {
@@ -22,10 +27,6 @@ export default {
       main: '#f44336',
       dark: '#d32f2f',
     },
-
-    warning: '#FFB818',
-
-    info: '#4169E1',
   },
 
   shadows: {
