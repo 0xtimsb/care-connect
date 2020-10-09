@@ -4,7 +4,6 @@ const userSchema = new mongoose.Schema({
   _id: mongoose.Schema.Types.ObjectId,
   name: { type: mongoose.Schema.Types.String, required: true },
   age: { type: mongoose.Schema.Types.Number, required: true },
-  dob: { type: mongoose.Schema.Types.Date, required: true },
   weight:{type: mongoose.Schema.Types.Number, required:true},
   height:{type: mongoose.Schema.Types.Number, required:true},
   phoneNum: {
@@ -24,10 +23,9 @@ interface USER extends mongoose.Document {
   _id: string;
   name:string,
   age: number,
-  dob: string
-  weight: number
-  height: number
-  phoneNum:string
+  weight: number;
+  height: number;
+  phoneNum:string;
   email: string;
   password: string;
 }
