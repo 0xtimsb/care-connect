@@ -26,7 +26,15 @@ router.post('/signup', async (req, res) => {
           const token: string = await jwt.sign({ email: createdUser.email, userid: createdUser._id }, process.env.JWT_TOKEN!, {
             expiresIn: '24h',
           });
-          res.status(201).json({error: null , data:{userData:createdUser,token:token}});
+          res.status(201).json({error: null , data:{userData:{
+            _id: createdUser._id,
+            name: createdUser.name,
+            age: createdUser.age,
+            weight: createdUser.weight,
+            height: createdUser.height,
+            phoneNum:createdUser.phoneNum,
+            email: createdUser.email,
+          },token:token}});
         } else {
           res.status(500).json({error: "Password hashing error", data:null});
         }
@@ -51,7 +59,15 @@ router.post('/login', async (req, res) => {
           const token: string = jwt.sign({ email: user.email, userid: user._id }, process.env.JWT_TOKEN!, {
             expiresIn: '72h',
           });
-          res.status(201).json({error: null , data:{userData:user,token:token}});
+          res.status(201).json({error: null , data:{userData:{
+            _id: user._id,
+            name: user.name,
+            age: user.age,
+            weight: user.weight,
+            height: user.height,
+            phoneNum:user.phoneNum,
+            email: user.email,
+          },token:token}});
         }
       });
     }
