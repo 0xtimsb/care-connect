@@ -11,7 +11,7 @@ const Root = styled.div`
 `;
 
 const Home = ({ userData }: any) => {
-	return <Root>{userData.stringify()}</Root>;
+	return <Root>'Home (You are logged in!)'</Root>;
 };
 
 export default Home;
