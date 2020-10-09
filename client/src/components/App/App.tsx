@@ -15,15 +15,14 @@ import { getCookie } from 'utils/cookie';
 const App = () => {
 	const [store, setStore] = useState({
 		userData: null,
-		token: getCookie('token'),
-		loading: false,
+		cookie: getCookie('token'),
 	});
 
 	return (
 		<Router>
 			<GlobalStyle />
 			<Switch>
-				{store.token ? (
+				{store.cookie ? (
 					<Route exact render={() => <AppLayout store setStore />} />
 				) : (
 					<Route exact render={() => <AuthLayout store setStore />} />

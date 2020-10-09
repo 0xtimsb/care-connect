@@ -2,7 +2,7 @@ export default {
   colors: {
     warning: '#FFB818',
     main: '#7289da',
-
+    error: '#e57373',
     focus: '#4169E1',
     hover: '#000000',
 
@@ -22,12 +22,6 @@ export default {
       light: '#ebe9e9',
       main: '#202225',
       dark: '#d0d2d5',
-    },
-
-    error: {
-      light: '#e57373',
-      main: '#f44336',
-      dark: '#d32f2f',
     },
   },
 

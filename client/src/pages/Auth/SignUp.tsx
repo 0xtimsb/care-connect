@@ -73,8 +73,19 @@ const Header = styled.label`
 	font-weight: bold;
 `;
 
+const Error = styled.label`
+	font-size: 10px;
+	font-weight: bold;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	color: ${(p) => p.theme.colors.error};
+	margin-bottom: 10px;
+`;
+
 const SignUp = ({ store, setStore }: any) => {
-	const { register, errors, handleSubmit } = useForm<IFormInput>();
+	const { register, errors, handleSubmit } = useForm<IFormInput>({
+		mode: 'all',
+	});
 
 	const onSubmit = (data: IFormInput) => {
 		axios
@@ -89,6 +100,7 @@ const SignUp = ({ store, setStore }: any) => {
 			})
 			.then((res) => {
 				console.log(res.data);
+				setStore({ ...res.data });
 			})
 			.catch((err) => {
 				console.log(err);
@@ -102,44 +114,115 @@ const SignUp = ({ store, setStore }: any) => {
 				<MinLabel mb='7px' mt='15px'>
 					Name
 				</MinLabel>
-				<Input name='name' ref={register({ required: true })} mb='12px' />
-				{errors.name && 'Name is required.'}
+				<Input
+					name='name'
+					ref={register({
+						required: { value: true, message: 'Name required.' },
+					})}
+					mb='12px'
+				/>
+				<Error>{errors.name && errors.name.message}</Error>
 
 				<MinLabel mb='7px'>Email</MinLabel>
-				<Input name='email' ref={register({ required: true })} mb='12px' />
-				{errors.email && 'Email is required.'}
+				<Input
+					name='email'
+					ref={register({
+						required: { value: true, message: 'Email required.' },
+						pattern: {
+							value: /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+							message: 'Invalid email address.',
+						},
+					})}
+					mb='12px'
+				/>
+				<Error>{errors.email && errors.email.message}</Error>
 
 				<MinLabel mb='7px'>Phone Number</MinLabel>
-				<Input name='phoneNum' ref={register({ required: true })} mb='12px' />
-				{errors.phoneNum && 'Phone Number is required.'}
+				<Input
+					name='phoneNum'
+					ref={register({
+						required: { value: true, message: 'Phone Number required.' },
+						pattern: {
+							value: /^[0-9+]*$/,
+							message: 'Invalid Phone Number.',
+						},
+						minLength: {
+							value: 10,
+							message: 'Invalid Phone Number.',
+						},
+					})}
+					mb='12px'
+				/>
+				<Error>{errors.phoneNum && errors.phoneNum.message}</Error>
 
 				<HFlex>
 					<VFlex mr='12px'>
 						<MinLabel mb='7px'>Age</MinLabel>
-						<Input name='age' ref={register({ required: true })} />
+						<Input
+							name='age'
+							ref={register({
+								required: { value: true, message: 'Age required.' },
+								pattern: {
+									value: /^[0-9]*$/,
+									message: 'Invalid Age.',
+								},
+								max: {
+									value: 100,
+									message: 'Invalid Age.',
+								},
+							})}
+						/>
 					</VFlex>
 					<VFlex>
 						<MinLabel mb='7px'>Weight</MinLabel>
-						<Input name='weight' ref={register({ required: true })} />
+						<Input
+							name='weight'
+							ref={register({
+								required: { value: true, message: 'Weight required.' },
+								pattern: {
+									value: /^[0-9]*$/,
+									message: 'Invalid Weight.',
+								},
+							})}
+						/>
 					</VFlex>
 					<VFlex ml='12px'>
 						<MinLabel mb='7px'>Height</MinLabel>
-						<Input name='height' ref={register({ required: true })} />
+						<Input
+							name='height'
+							ref={register({
+								required: { value: true, message: 'Height required.' },
+								pattern: {
+									value: /^[0-9]*$/,
+									message: 'Invalid Height.',
+								},
+							})}
+						/>
 					</VFlex>
 				</HFlex>
 
-				{errors.age && 'Age is required.'}
-				{errors.weight && 'Weight is required.'}
-				{errors.height && 'Height is required.'}
+				<Error>{errors.age && errors.age.message}</Error>
+				<Error>{errors.weight && errors.weight.message}</Error>
+				<Error>{errors.height && errors.height.message}</Error>
 
 				<MinLabel mb='5px'>Password</MinLabel>
 				<Input
 					name='password'
-					ref={register({ required: true })}
+					ref={register({
+						required: { value: true, message: 'Password required.' },
+						minLength: {
+							value: 6,
+							message: 'Min length is 6.',
+						},
+						maxLength: {
+							value: 30,
+							message: 'Max length is 30.',
+						},
+					})}
 					mb='12px'
 					type='password'
 				/>
-				{errors.password && 'Password is required.'}
+				<Error>{errors.password && errors.password.message}</Error>
 
 				<Button type='submit'>Sign Up</Button>
 			</Form>
