@@ -47,6 +47,23 @@ router.post('/signup', async (req, res) => {
   }
 });
 
+router.get('/', auth,async (req, res) => {
+  const user = await userModel.findOne({ email: req.user.email });
+  if(user === null) res.status(404).json({error: "User not found", data:null});
+  else{
+    res.status(201).json({error: null , data:{userData:{
+      _id: user._id,
+      name: user.name,
+      age: user.age,
+      weight: user.weight,
+      height: user.height,
+      phoneNum:user.phoneNum,
+      email: user.email,
+    }}});
+  }
+});
+
+
 router.post('/login', async (req, res) => {
   try {
     const user = await userModel.findOne({ email: req.body.loginEmail });

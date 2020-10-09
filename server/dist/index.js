@@ -37,6 +37,7 @@ app.use((req, res, next) => {
 const io = socket_io_1.default(httpserver);
 const userSocket = io.of('/user');
 userSocket.on('connection', (socket) => {
+    console.log('Connected');
     sendData(socket);
 });
 app.use(user_1.default);
