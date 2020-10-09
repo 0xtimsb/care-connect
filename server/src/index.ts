@@ -1,6 +1,4 @@
 import express from 'express';
-import prodRouter from './routes/products';
-import orderRouter from './routes/order';
 import userRouter from './routes/user';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
@@ -15,6 +13,7 @@ declare global {
     }
   }
 }
+
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -31,12 +30,6 @@ app.use((req: express.Request, res: express.Response, next: express.NextFunction
   return;
 });
 
-// Product route
-app.use('/product', prodRouter);
-// Order route
-app.use('/orders', orderRouter);
-// Images route
-app.use('/images', express.static('images'));
 // User Route
 app.use('/', userRouter);
 
