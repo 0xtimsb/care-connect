@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import styled, { css } from 'styled-components';
-import { Link as RouterLink, withRouter } from 'react-router-dom';
+import { withRouter, Link as RouterLink } from 'react-router-dom';
 
 // Styled.
 import Panel from 'styled/Panel';
@@ -14,12 +14,7 @@ import axios from 'utils/api';
 import { setCookie } from 'utils/cookie';
 
 interface IFormInput {
-	name: string;
 	email: string;
-	phoneNum: string;
-	age: number;
-	weight: number;
-	height: number;
 	password: string;
 }
 
@@ -31,32 +26,6 @@ const Root = styled(Panel)`
 const Form = styled.form`
 	display: flex;
 	flex-direction: column;
-`;
-
-const HFlex = styled.div`
-	display: flex;
-	margin-bottom: 12px;
-`;
-
-interface VFlexProps {
-	ml?: string;
-	mr?: string;
-}
-
-const VFlex = styled.div<VFlexProps>`
-	display: flex;
-	flex-direction: column;
-
-	${(p) =>
-		p.ml &&
-		css`
-			margin-left: ${p.ml};
-		`}
-	${(p) =>
-		p.mr &&
-		css`
-			margin-right: ${p.mr};
-		`}
 `;
 
 const MinLabel = styled(Label)`
@@ -94,7 +63,7 @@ const Link = styled(RouterLink)`
 	text-decoration: none;
 `;
 
-const SignUp = ({ handleUserData, handleCookieData, history }: any) => {
+const LogIn = ({ handleUserData, handleCookieData, history }: any) => {
 	const [loading, setLoading] = useState(false);
 
 	const { register, errors, handleSubmit } = useForm<IFormInput>({
@@ -104,14 +73,9 @@ const SignUp = ({ handleUserData, handleCookieData, history }: any) => {
 	const onSubmit = (data: IFormInput) => {
 		setLoading(true);
 		axios
-			.post('signup', {
-				name: data.name,
-				signupEmail: data.email,
-				phoneNum: data.phoneNum,
-				age: data.age,
-				weight: data.weight,
-				height: data.height,
-				signupPassword: data.password,
+			.post('login', {
+				loginEmail: data.email,
+				loginPassword: data.password,
 			})
 			.then((res) => {
 				history.push('/');
@@ -138,18 +102,7 @@ const SignUp = ({ handleUserData, handleCookieData, history }: any) => {
 	) : (
 		<Root>
 			<Form onSubmit={handleSubmit(onSubmit)}>
-				<Header>Create an account</Header>
-				<MinLabel mb='7px' mt='15px'>
-					Name
-				</MinLabel>
-				<Input
-					name='name'
-					ref={register({
-						required: { value: true, message: 'Name required.' },
-					})}
-					mb='12px'
-				/>
-				<Error>{errors.name && errors.name.message}</Error>
+				<Header>Welcome Back!</Header>
 
 				<MinLabel mb='7px'>Email</MinLabel>
 				<Input
@@ -164,74 +117,6 @@ const SignUp = ({ handleUserData, handleCookieData, history }: any) => {
 					mb='12px'
 				/>
 				<Error>{errors.email && errors.email.message}</Error>
-
-				<MinLabel mb='7px'>Phone Number</MinLabel>
-				<Input
-					name='phoneNum'
-					ref={register({
-						required: { value: true, message: 'Phone Number required.' },
-						pattern: {
-							value: /^[0-9+]*$/,
-							message: 'Invalid Phone Number.',
-						},
-						minLength: {
-							value: 10,
-							message: 'Invalid Phone Number.',
-						},
-					})}
-					mb='12px'
-				/>
-				<Error>{errors.phoneNum && errors.phoneNum.message}</Error>
-
-				<HFlex>
-					<VFlex mr='12px'>
-						<MinLabel mb='7px'>Age</MinLabel>
-						<Input
-							name='age'
-							ref={register({
-								required: { value: true, message: 'Age required.' },
-								pattern: {
-									value: /^[0-9]*$/,
-									message: 'Invalid Age.',
-								},
-								max: {
-									value: 100,
-									message: 'Invalid Age.',
-								},
-							})}
-						/>
-					</VFlex>
-					<VFlex>
-						<MinLabel mb='7px'>Weight</MinLabel>
-						<Input
-							name='weight'
-							ref={register({
-								required: { value: true, message: 'Weight required.' },
-								pattern: {
-									value: /^[0-9]*$/,
-									message: 'Invalid Weight.',
-								},
-							})}
-						/>
-					</VFlex>
-					<VFlex ml='12px'>
-						<MinLabel mb='7px'>Height</MinLabel>
-						<Input
-							name='height'
-							ref={register({
-								required: { value: true, message: 'Height required.' },
-								pattern: {
-									value: /^[0-9]*$/,
-									message: 'Invalid Height.',
-								},
-							})}
-						/>
-					</VFlex>
-				</HFlex>
-
-				<Error>{errors.age && errors.age.message}</Error>
-				<Error>{errors.weight && errors.weight.message}</Error>
-				<Error>{errors.height && errors.height.message}</Error>
 
 				<MinLabel mb='5px'>Password</MinLabel>
 				<Input
@@ -252,11 +137,11 @@ const SignUp = ({ handleUserData, handleCookieData, history }: any) => {
 				/>
 				<Error>{errors.password && errors.password.message}</Error>
 
-				<Button type='submit'>Sign Up</Button>
-				<Link to='/login'>Already have an account?</Link>
+				<Button type='submit'>Log In</Button>
+				<Link to='/signup'>Need an account? Register</Link>
 			</Form>
 		</Root>
 	);
 };
 
-export default withRouter(SignUp);
+export default withRouter(LogIn);

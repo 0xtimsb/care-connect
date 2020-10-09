@@ -1,14 +1,13 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import styled from 'styled-components';
-import { withRouter } from 'react-router-dom';
 
 // Pages
-// import LogIn from 'pages/Auth/LogIn';
+import LogIn from 'pages/Auth/LogIn';
 import SignUp from 'pages/Auth/SignUp';
 
 // Others
-import { HOME, LOG_IN, SIGN_UP } from 'routes';
+import { LOG_IN, SIGN_UP } from 'routes';
 
 const Root = styled.div`
 	width: 100%;
@@ -19,14 +18,20 @@ const Root = styled.div`
 	align-items: center;
 `;
 
-const AuthLayout = ({ handleUserData, handleCookieData, history }: any) => {
-	useEffect(() => {
-		history.push('/signup');
-	}, []);
-
+const AuthLayout = ({ handleUserData, handleCookieData }: any) => {
 	return (
 		<Root>
 			<Switch>
+				<Route
+					exact
+					path={LOG_IN}
+					render={() => (
+						<LogIn
+							handleUserData={handleUserData}
+							handleCookieData={handleCookieData}
+						/>
+					)}
+				/>
 				<Route
 					exact
 					path={SIGN_UP}
@@ -37,11 +42,10 @@ const AuthLayout = ({ handleUserData, handleCookieData, history }: any) => {
 						/>
 					)}
 				/>
-				{/* <Route exact path={LOG_IN} render={() => <LogIn store setStore />} /> */}
-				<Redirect to={HOME} />
+				<Redirect to={SIGN_UP} />
 			</Switch>
 		</Root>
 	);
 };
 
-export default withRouter(AuthLayout);
+export default AuthLayout;
