@@ -25,7 +25,7 @@ const Input = styled.input<InputProps>`
   color: ${p => p.theme.colors.text.primary};
 	background-color: ${p => p.theme.colors.primary.main};
 	&:hover {
-		border-color: ${p => p.theme.colors.border.dark};
+		border-color: ${p => p.theme.colors.hover};
 	}
 	&:focus {
 		border-color: ${p => p.theme.colors.focus};

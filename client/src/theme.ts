@@ -1,8 +1,10 @@
 export default {
   colors: {
     warning: '#FFB818',
-    info: '#4169E1',
+    main: '#7289da',
+
     focus: '#4169E1',
+    hover: '#000000',
 
     primary: {
       light: '#36393f',
@@ -18,7 +20,7 @@ export default {
 
     border: {
       light: '#ebe9e9',
-      main: '#dbdbdb',
+      main: '#202225',
       dark: '#d0d2d5',
     },
 
