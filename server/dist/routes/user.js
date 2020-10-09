@@ -29,7 +29,6 @@ router.post('/signup', (req, res) => __awaiter(void 0, void 0, void 0, function*
                         _id: new mongoose_1.default.Types.ObjectId(),
                         name: req.body.name,
                         age: req.body.age,
-                        dob: new Date(req.body.dob),
                         weight: req.body.weight,
                         height: req.body.height,
                         phoneNum: req.body.phoneNum,

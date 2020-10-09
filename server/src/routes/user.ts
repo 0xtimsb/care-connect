@@ -16,7 +16,6 @@ router.post('/signup', async (req, res) => {
             _id: new mongoose.Types.ObjectId(),
             name: req.body.name,
             age: req.body.age,
-            dob:  new Date(req.body.dob),
             weight: req.body.weight,
             height: req.body.height,
             phoneNum: req.body.phoneNum,

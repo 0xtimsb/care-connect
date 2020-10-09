@@ -17,7 +17,6 @@ const userSchema = new mongoose_1.default.Schema({
     _id: mongoose_1.default.Schema.Types.ObjectId,
     name: { type: mongoose_1.default.Schema.Types.String, required: true },
     age: { type: mongoose_1.default.Schema.Types.Number, required: true },
-    dob: { type: mongoose_1.default.Schema.Types.Date, required: true },
     weight: { type: mongoose_1.default.Schema.Types.Number, required: true },
     height: { type: mongoose_1.default.Schema.Types.Number, required: true },
     phoneNum: {
