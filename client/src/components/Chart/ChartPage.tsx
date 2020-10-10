@@ -35,7 +35,7 @@ const ChartPage = () => {
 
 	useEffect(() => {
 		if (seconds - 1 >= 0) {
-			if (response[seconds - 1]) {
+			if (response[0]) {
 				const size = 30;
 				let plotData = [] as graphPoint[];
 				if (graphData.length < size) {
@@ -52,10 +52,8 @@ const ChartPage = () => {
 				} else {
 					plotData = graphData.slice(1);
 				}
-				setGraphData([
-					...plotData,
-					{ ...response[seconds - 1], time: seconds - 1 },
-				]);
+				setGraphData([...plotData, { ...response[0], time: seconds - 1 }]);
+				setResponse(response.slice(1));
 			} else {
 				console.log('Data not found!');
 			}
