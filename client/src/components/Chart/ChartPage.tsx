@@ -58,22 +58,22 @@ const ChartPage = () => {
 				graphData={graphData}
 				x_key='time'
 				y_key='Heart_rate'
-				color='#878787'
-				stroke='#242424'
+				color='#e0685e'
+				stroke='#ffa59e'
 			/>
 			<Chart
 				graphData={graphData}
 				x_key='time'
 				y_key='diastoli_bp'
-				color='#878787'
-				stroke='#242424'
+				color='#5ce0ae'
+				stroke='#9effda'
 			/>
 			<Chart
 				graphData={graphData}
 				x_key='time'
 				y_key='systolic_bp'
-				color='#878787'
-				stroke='#242424'
+				color='#9d59f0'
+				stroke='#ca9eff'
 			/>
 		</Root>
 	);
