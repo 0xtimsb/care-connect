@@ -23,10 +23,10 @@ const Chart = ({ graphData, x_key, y_key, color, stroke }: ChartProps) => {
 
 	return (
 		<AreaChart
-			width={width! - 70}
-			height={200}
+			width={width! * 0.8}
+			height={180}
 			data={graphData}
-			margin={{ top: 10, right: 0, left: 0, bottom: 10 }}
+			margin={{ top: 0, right: 0, left: 0, bottom: 0 }}
 			syncId='id'
 		>
 			<defs>

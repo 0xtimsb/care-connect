@@ -21,6 +21,10 @@ const Root = styled.div`
 	flex-direction: column;
 `;
 
+const Header = styled.h3`
+	margin-left: 50px;
+`;
+
 const ChartPage = () => {
 	const [graphData, setGraphData] = useState([] as graphPoint[]);
 	const [response, setResponse] = useState([] as dataPoint[]);
@@ -36,7 +40,7 @@ const ChartPage = () => {
 	useEffect(() => {
 		if (seconds - 1 >= 0) {
 			if (response[0]) {
-				const size = 30;
+				const size = 45;
 				let plotData = [] as graphPoint[];
 				if (graphData.length < size) {
 					for (let i = 0; i < size - graphData.length - 1; i++) {
@@ -68,6 +72,7 @@ const ChartPage = () => {
 
 	return (
 		<Root>
+			<Header>Heart Rate</Header>
 			<Chart
 				graphData={graphData}
 				x_key='time'
@@ -75,6 +80,7 @@ const ChartPage = () => {
 				color='#e0685e'
 				stroke='#ffa59e'
 			/>
+			<Header>Diastolic Blood Pressure</Header>
 			<Chart
 				graphData={graphData}
 				x_key='time'
@@ -82,6 +88,7 @@ const ChartPage = () => {
 				color='#5ce0ae'
 				stroke='#9effda'
 			/>
+			<Header>Systolic Blood Pressure</Header>
 			<Chart
 				graphData={graphData}
 				x_key='time'
