@@ -38,7 +38,6 @@ const io = socketio(httpserver)
 
 const userSocket = io.of('/')
 userSocket.on('connection', (socket:Socket)=> {
-  console.log('Connected');
   sendData(socket)
 })
 

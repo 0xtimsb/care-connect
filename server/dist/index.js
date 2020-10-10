@@ -37,12 +37,10 @@ app.use((req, res, next) => {
 const io = socket_io_1.default(httpserver);
 const userSocket = io.of('/');
 userSocket.on('connection', (socket) => {
-    console.log('Connected');
     sendData(socket);
 });
 const sendData = (socket) => __awaiter(void 0, void 0, void 0, function* () {
-    const rand = Math.floor(Math.random() * (1900 - 10)) + 10;
-    console.log(rand);
+    const rand = (yield Math.floor(Math.random() * (1900 - 10))) + 10;
     const vitals = yield vitals_1.default.find().skip(rand).limit(10);
     socket.emit('data', vitals);
     setTimeout(() => {
