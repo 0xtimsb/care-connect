@@ -2,6 +2,8 @@ import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 
+import background from 'images/background-4.jpg';
+
 // Pages
 import LogIn from 'pages/Auth/LogIn';
 import SignUp from 'pages/Auth/SignUp';
@@ -14,13 +16,21 @@ const Root = styled.div`
 	height: 100vh;
 
 	display: flex;
+	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+
+	background-image: url(${background});
+	background-position: center;
+	background-size: cover;
 `;
+
+const Header = styled.h1``;
 
 const AuthLayout = ({ handleUserData }: any) => {
 	return (
 		<Root>
+			<Header>Care Connect</Header>
 			<Switch>
 				<Route
 					exact

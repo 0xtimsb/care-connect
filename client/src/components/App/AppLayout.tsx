@@ -10,10 +10,10 @@ import { HOME } from 'routes';
 
 const Root = styled.div``;
 
-const AppLayout = ({ userData }: any) => {
+const AppLayout = ({ userData, handleUserData }: any) => {
 	return (
 		<Root>
-			<Navbar userData={userData} />
+			<Navbar userData={userData} handleUserData={handleUserData} />
 			<Switch>
 				<Route exact path={HOME} render={() => <Home userData={userData} />} />
 				<Redirect to={HOME} />
