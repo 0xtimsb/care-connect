@@ -18,29 +18,19 @@ const Root = styled.div`
 	align-items: center;
 `;
 
-const AuthLayout = ({ handleUserData, handleCookieData }: any) => {
+const AuthLayout = ({ handleUserData }: any) => {
 	return (
 		<Root>
 			<Switch>
 				<Route
 					exact
 					path={LOG_IN}
-					render={() => (
-						<LogIn
-							handleUserData={handleUserData}
-							handleCookieData={handleCookieData}
-						/>
-					)}
+					render={() => <LogIn handleUserData={handleUserData} />}
 				/>
 				<Route
 					exact
 					path={SIGN_UP}
-					render={() => (
-						<SignUp
-							handleUserData={handleUserData}
-							handleCookieData={handleCookieData}
-						/>
-					)}
+					render={() => <SignUp handleUserData={handleUserData} />}
 				/>
 				<Redirect to={SIGN_UP} />
 			</Switch>

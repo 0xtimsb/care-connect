@@ -94,7 +94,7 @@ const Link = styled(RouterLink)`
 	text-decoration: none;
 `;
 
-const SignUp = ({ handleUserData, handleCookieData, history }: any) => {
+const SignUp = ({ handleUserData, history }: any) => {
 	const [loading, setLoading] = useState(false);
 
 	const { register, errors, handleSubmit } = useForm<IFormInput>({
@@ -113,23 +113,16 @@ const SignUp = ({ handleUserData, handleCookieData, history }: any) => {
 				height: data.height,
 				signupPassword: data.password,
 			})
-			.then((res) => {
+			.then(({ data }) => {
 				history.push('/');
-				setCookie('token', res.data.token);
-				handleCookieData();
-				handleUserData({ ...res.data.userData });
+				setCookie('token', data.data.token);
+				handleUserData({ ...data.data.userData });
 			})
 			.catch((err) => {
 				console.log(err);
 				setLoading(false);
 			});
 	};
-
-	useEffect(() => {
-		return () => {
-			setLoading(false); // Cleanup!
-		};
-	}, []);
 
 	return loading ? (
 		<Root>
