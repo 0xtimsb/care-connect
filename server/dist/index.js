@@ -18,7 +18,6 @@ const morgan_1 = __importDefault(require("morgan"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const socket_io_1 = __importDefault(require("socket.io"));
-const sock_1 = __importDefault(require("./routes/sock"));
 const app = express_1.default();
 const httpserver = require('http').createServer(app);
 app.use(morgan_1.default('dev'));
@@ -35,13 +34,12 @@ app.use((req, res, next) => {
     return;
 });
 const io = socket_io_1.default(httpserver);
-const userSocket = io.of('/user');
+const userSocket = io.of('/');
 userSocket.on('connection', (socket) => {
     console.log('Connected');
     sendData(socket);
 });
 app.use(user_1.default);
-app.use(sock_1.default);
 app.use((_req, res, _next) => {
     const err = new Error('Invalid route');
     res.json({
