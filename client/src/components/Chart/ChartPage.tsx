@@ -5,10 +5,10 @@ import Chart from 'components/Chart/Chart';
 import styled from 'styled-components';
 
 interface dataPoint {
-	_id: string;
-	Heart_rate: number;
-	diastoli_bp: number;
-	systolic_bp: number;
+	_id?: string;
+	Heart_rate?: number;
+	diastoli_bp?: number;
+	systolic_bp?: number;
 	temp: number;
 }
 
@@ -36,8 +36,24 @@ const ChartPage = () => {
 	useEffect(() => {
 		if (seconds - 1 >= 0) {
 			if (response[seconds - 1]) {
+				const size = 30;
+				let plotData = [] as graphPoint[];
+				if (graphData.length < size) {
+					for (let i = 0; i < size - graphData.length - 1; i++) {
+						plotData.push({
+							_id: undefined,
+							Heart_rate: undefined,
+							diastoli_bp: undefined,
+							systolic_bp: undefined,
+							time: seconds - 1,
+						} as graphPoint);
+					}
+					plotData.concat(graphData);
+				} else {
+					plotData = graphData.slice(1);
+				}
 				setGraphData([
-					...graphData,
+					...plotData,
 					{ ...response[seconds - 1], time: seconds - 1 },
 				]);
 			} else {
