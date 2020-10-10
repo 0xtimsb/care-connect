@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import Button from 'styled/Button';
 
 const Root = styled.div`
 	width: 100%;
@@ -11,19 +12,37 @@ const Root = styled.div`
 	justify-content: center;
 `;
 
-const Wrapper = styled.div`
-	width: 75%;
+const Offset = styled.div`
+	width: 77%;
 
 	display: flex;
+	justify-content: space-between;
 	align-items: center;
 `;
 
-const Navbar = () => {
+const ButtonsWrapper = styled.div`
+	display: flex;
+`;
+
+const ButtonWrapper = styled.div`
+	width: 120px;
+	margin-left: 10px;
+`;
+
+const Navbar = ({ userData }: any) => {
 	return (
 		<Root>
-			<Wrapper>
+			<Offset>
 				<h2>Care Connect</h2>
-			</Wrapper>
+				<ButtonsWrapper>
+					<ButtonWrapper>
+						<Button>Edit Profile</Button>
+					</ButtonWrapper>
+					<ButtonWrapper>
+						<Button>Log Out</Button>
+					</ButtonWrapper>
+				</ButtonsWrapper>
+			</Offset>
 		</Root>
 	);
 };

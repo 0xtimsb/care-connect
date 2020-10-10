@@ -19,6 +19,8 @@ interface graphPoint extends dataPoint {
 const Root = styled.div`
 	display: flex;
 	flex-direction: column;
+
+	padding-right: 50px;
 `;
 
 const Header = styled.h3`

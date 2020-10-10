@@ -13,7 +13,7 @@ const Root = styled.div``;
 const AppLayout = ({ userData }: any) => {
 	return (
 		<Root>
-			<Navbar />
+			<Navbar userData={userData} />
 			<Switch>
 				<Route exact path={HOME} render={() => <Home userData={userData} />} />
 				<Redirect to={HOME} />
