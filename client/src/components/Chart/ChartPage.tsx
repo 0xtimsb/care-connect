@@ -33,7 +33,7 @@ const ChartPage = () => {
 	const [seconds, setSeconds] = useState(0);
 
 	useEffect(() => {
-		const socket = io('http://localhost:4000/');
+		const socket = io(process.env.baseURL || 'http://localhost:8080/');
 		socket.on('data', (res: dataPoint[]) => {
 			setResponse((r: dataPoint[]) => [...r, ...res]);
 		});
