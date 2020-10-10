@@ -16,9 +16,17 @@ interface ChartProps {
 	y_key: string;
 	color: string;
 	stroke: string;
+	y_unit: string;
 }
 
-const Chart = ({ graphData, x_key, y_key, color, stroke }: ChartProps) => {
+const Chart = ({
+	graphData,
+	x_key,
+	y_key,
+	color,
+	stroke,
+	y_unit,
+}: ChartProps) => {
 	const { width } = useWindowSize();
 
 	return (
@@ -36,7 +44,11 @@ const Chart = ({ graphData, x_key, y_key, color, stroke }: ChartProps) => {
 				</linearGradient>
 			</defs>
 			<XAxis dataKey={x_key} unit='s' />
-			<YAxis type='number' domain={[`dataMin - 50`, `dataMax + 50`]} />
+			<YAxis
+				type='number'
+				domain={[`dataMin - 50`, `dataMax + 50`]}
+				unit={y_unit}
+			/>
 			<Tooltip />
 			<CartesianGrid opacity={0.05} />
 			<Area
