@@ -27,8 +27,8 @@ const App = () => {
 						Authorization: `bearer ${getCookie('token')}`,
 					},
 				})
-				.then((res) => {
-					handleUserData({ ...res.data.userData });
+				.then(({ data }) => {
+					handleUserData({ ...data.data.userData });
 				})
 				.catch((err) => {
 					console.log(err);
@@ -41,7 +41,12 @@ const App = () => {
 			<GlobalStyle />
 			<Switch>
 				{userData ? (
-					<Route exact render={() => <AppLayout userData={userData} />} />
+					<Route
+						exact
+						render={() => (
+							<AppLayout userData={userData} handleUserData={handleUserData} />
+						)}
+					/>
 				) : (
 					<Route
 						exact

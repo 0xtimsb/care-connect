@@ -1,5 +1,4 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from 'styled/Button';
 
@@ -32,19 +31,19 @@ const ButtonWrapper = styled.div`
 	margin-left: 10px;
 `;
 
-const Navbar = ({ userData, history }: any) => {
+const Navbar = ({ userData, handleUserData }: any) => {
 	const logout = () => {
 		eraseCookie('token');
-		history.push('/');
+		handleUserData(null);
 	};
 
 	return (
 		<Root>
 			<Offset>
-				<h2>Care Connect</h2>
+				<h2>Care Connect - {userData.name}</h2>
 				<ButtonsWrapper>
 					<ButtonWrapper>
-						<Button onClick={logout}>Log Out</Button>
+						<Button onClick={() => logout()}>Log Out</Button>
 					</ButtonWrapper>
 				</ButtonsWrapper>
 			</Offset>
@@ -52,4 +51,4 @@ const Navbar = ({ userData, history }: any) => {
 	);
 };
 
-export default withRouter(Navbar);
+export default Navbar;
