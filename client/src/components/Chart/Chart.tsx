@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import io from 'socket.io-client';
 import {
 	AreaChart,
 	Area,
@@ -11,55 +12,81 @@ import {
 import useWindowSize from 'hooks/useWindowSize';
 
 interface dataPoint {
+	_id: string;
+	Heart_rate: number;
+	diastoli_bp: number;
+	systolic_bp: number;
+	temp: number;
+}
+
+interface graphPoint extends dataPoint {
 	time: number;
-	value?: number;
 }
 
 const Chart = () => {
-	const { width, height } = useWindowSize();
+	const { width } = useWindowSize();
 
-	const [data, setData] = useState([] as dataPoint[]);
+	const [graphData, setGraphData] = useState([] as graphPoint[]);
+	const [response, setResponse] = useState([] as dataPoint[]);
+	const [seconds, setSeconds] = useState(0);
 
 	useEffect(() => {
-		setTimeout(() => {
-			const size = 60;
-			let newData = [];
-			if (data.length === 0) {
-				for (let i = 0; i < size; i++) {
-					newData.push({ value: undefined, time: i - size });
-				}
-			} else {
-				newData = data.slice(1);
-				newData.push({
-					value: parseFloat((700 + Math.random() * 100).toFixed(2)), // Random data
-					time: data[data.length - 1].time + 1,
-				});
-			}
-			setData(newData);
+		const socket = io('http://localhost:4000/');
+		socket.on('data', (res: dataPoint[]) => {
+			setResponse((r: dataPoint[]) => [...r, ...res]);
+		});
+	}, []);
+
+	useEffect(() => {
+		console.log(graphData);
+		if (response[seconds]) {
+			setGraphData([...graphData, { ...response[seconds], time: seconds }]);
+		}
+		const interval = setInterval(() => {
+			setSeconds((s) => s + 1);
 		}, 1000);
-	}, [data]);
+		return () => {
+			clearInterval(interval);
+		};
+	}, [seconds]);
 
 	return (
 		<AreaChart
 			width={width ? width - 50 : 800}
 			height={500}
-			data={data}
+			data={graphData}
 			margin={{ top: 0, right: 0, left: 0, bottom: 0 }}
 		>
 			<defs>
 				<linearGradient id='colorPv' x1='0' y1='0' x2='0' y2='1'>
 					<stop offset='5%' stopColor='#2abf8b' stopOpacity={0.8} />
-					<stop offset='95%' stopColor='#2abf8b' stopOpacity={0} />
+					<stop offset='95%' stopColor='#ba6de3' stopOpacity={0} />
 				</linearGradient>
 			</defs>
 			<XAxis dataKey='time' unit='s' />
-			<YAxis type='number' domain={['dataMin - 200', 'dataMax + 200']} />
+			<YAxis type='number' domain={['dataMin - 100', 'dataMax + 100']} />
 			<Tooltip />
 			<CartesianGrid opacity={0.05} />
 			<Area
 				type='monotone'
-				dataKey='value'
+				dataKey='Heart_rate'
 				stroke='#03fca5'
+				fillOpacity={1}
+				fill='url(#colorPv)'
+				isAnimationActive={false}
+			/>
+			<Area
+				type='monotone'
+				dataKey='diastoli_bp'
+				stroke='#ba6de3'
+				fillOpacity={1}
+				fill='url(#colorPv)'
+				isAnimationActive={false}
+			/>
+			<Area
+				type='monotone'
+				dataKey='systolic_bp'
+				stroke='#ba6de3'
 				fillOpacity={1}
 				fill='url(#colorPv)'
 				isAnimationActive={false}
