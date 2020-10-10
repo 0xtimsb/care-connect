@@ -36,7 +36,7 @@ const Chart = () => {
 				});
 			}
 			setData(newData);
-		}, 100);
+		}, 1000);
 	}, [data]);
 
 	return (
@@ -55,6 +55,7 @@ const Chart = () => {
 			<XAxis dataKey='time' unit='s' />
 			<YAxis type='number' domain={['dataMin - 200', 'dataMax + 200']} />
 			<Tooltip />
+			<CartesianGrid opacity={0.05} />
 			<Area
 				type='monotone'
 				dataKey='value'
