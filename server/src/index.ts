@@ -4,17 +4,14 @@ import morgan from 'morgan';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import socketio, { Socket } from 'socket.io'
-import sockRouter from './routes/sock'
 const app = express();
 const httpserver = require('http').createServer(app);
-
-
 
 // Adding user globally to express.Request
 declare global {
   namespace Express {
     interface Request {
-      user: string | object;
+      user: string | object 
     }
   }
 }
@@ -37,7 +34,7 @@ app.use((req: express.Request, res: express.Response, next: express.NextFunction
 
 const io = socketio(httpserver)
 
-const userSocket = io.of('/user')
+const userSocket = io.of('/')
 userSocket.on('connection', (socket:Socket)=> {
   console.log('Connected');
   sendData(socket)
@@ -45,9 +42,6 @@ userSocket.on('connection', (socket:Socket)=> {
 
 // User Route
 app.use(userRouter);
-
-// Socket Route
-app.use(sockRouter)
 
 // Error handling
 app.use((_req, res, _next) => {

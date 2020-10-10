@@ -1,6 +1,4 @@
-import io from 'socket.io-client';
-
-const socket = io('http://localhost:4000/user');
+const socket = io('http://localhost:4000/')
 
 socket.on('data', (res) => {
     console.log(res);
