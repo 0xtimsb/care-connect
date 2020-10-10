@@ -36,6 +36,10 @@ app.use((req: express.Request, res: express.Response, next: express.NextFunction
   return;
 });
 
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('../client/build'));
+}
+
 const io = socketio(httpserver);
 
 const userSocket = io.of('/');
@@ -55,10 +59,6 @@ const sendData = async (socket: Socket) => {
 
 // User Route
 app.use(userRouter);
-
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('./client/build'));
-}
 
 // Error handling
 app.use((_req, res, _next) => {

@@ -35,6 +35,9 @@ app.use((req, res, next) => {
     next();
     return;
 });
+if (process.env.NODE_ENV === 'production') {
+    app.use(express_1.default.static('../client/build'));
+}
 const io = socket_io_1.default(httpserver);
 const userSocket = io.of('/');
 userSocket.on('connection', (socket) => {
@@ -50,9 +53,6 @@ const sendData = (socket) => __awaiter(void 0, void 0, void 0, function* () {
     }, 10000);
 });
 app.use(user_1.default);
-if (process.env.NODE_ENV === 'production') {
-    app.use(express_1.default.static('./client/build'));
-}
 app.use((_req, res, _next) => {
     const err = new Error('Invalid route');
     res.json({
