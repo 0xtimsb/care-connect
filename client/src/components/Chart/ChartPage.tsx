@@ -33,7 +33,9 @@ const ChartPage = () => {
 	const [seconds, setSeconds] = useState(0);
 
 	useEffect(() => {
-		const socket = io(process.env.baseURL || 'http://localhost:8080/');
+		const socket = io(
+			'https://careconnectapp.herokuapp.com/' || 'http://localhost:8080/'
+		);
 		socket.on('data', (res: dataPoint[]) => {
 			setResponse((r: dataPoint[]) => [...r, ...res]);
 		});
