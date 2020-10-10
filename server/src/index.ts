@@ -4,6 +4,8 @@ import morgan from 'morgan';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import socketio, { Socket } from 'socket.io'
+import vitalModel from './models/vitals'
+
 const app = express();
 const httpserver = require('http').createServer(app);
 
@@ -40,6 +42,15 @@ userSocket.on('connection', (socket:Socket)=> {
   sendData(socket)
 })
 
+const sendData =async (socket:Socket) => {
+  const rand = await Math.floor(Math.random() * (1900 - 10)) + 10;
+  const vitals = await vitalModel.find().skip(rand).limit(10)
+  socket.emit('data', vitals)
+  setTimeout(() => {
+    sendData(socket)
+  },10000)
+}
+
 // User Route
 app.use(userRouter);
 
@@ -63,9 +74,3 @@ httpserver.listen(4000, async () => {
     console.log('Listening at PORT 4000');
   });
   
-  const sendData = (socket:Socket) => {
-    socket.emit('data', Array.from({length: 8}, () => Math.floor(Math.random() * 590) + 10))
-    setTimeout(() => {
-      sendData(socket)
-    },1000)
-  }
