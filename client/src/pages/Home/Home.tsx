@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import Chart from 'components/Chart/Chart';
+import ChartPage from 'components/Chart/ChartPage';
 
 const Root = styled.div`
 	width: 100%;
@@ -15,7 +15,7 @@ const Root = styled.div`
 const Home = ({ userData }: any) => {
 	return (
 		<Root>
-			<Chart />
+			<ChartPage />
 		</Root>
 	);
 };
