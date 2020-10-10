@@ -1,11 +1,12 @@
 <h1 align="center">
-🌐 CareConnect
+🌐 Care Connect
 </h1>
 <p align="center">
 MongoDB, Expressjs, React, Nodejs
 </p>
 
-> MERN is a fullstack implementation in MongoDB, Expressjs, React, Nodejs, SocketIO
+> MERN is a fullstack implementation in MongoDB, Expressjs, React, Nodejs,
+> SocketIO
 
 MERN stack is the idea of using TypeScript/Node for fullstack web development.
 
@@ -46,7 +47,8 @@ client/
 - [Node](https://nodejs.org/en/) ^10.0.0
 - [yarn](https://yarnpkg.com/)
 
-notice, you need client and server runs concurrently in different terminal session, in order to make them talk to each other
+notice, you need client and server runs concurrently in different terminal
+session, in order to make them talk to each other
 
 ## Client-side usage(PORT: 3000)
 
