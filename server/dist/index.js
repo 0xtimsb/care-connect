@@ -18,6 +18,7 @@ const morgan_1 = __importDefault(require("morgan"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const socket_io_1 = __importDefault(require("socket.io"));
+const vitals_1 = __importDefault(require("./models/vitals"));
 const app = express_1.default();
 const httpserver = require('http').createServer(app);
 app.use(morgan_1.default('dev'));
@@ -39,6 +40,15 @@ userSocket.on('connection', (socket) => {
     console.log('Connected');
     sendData(socket);
 });
+const sendData = (socket) => __awaiter(void 0, void 0, void 0, function* () {
+    const rand = Math.floor(Math.random() * (1900 - 10)) + 10;
+    console.log(rand);
+    const vitals = yield vitals_1.default.find().skip(rand).limit(10);
+    socket.emit('data', vitals);
+    setTimeout(() => {
+        sendData(socket);
+    }, 10000);
+});
 app.use(user_1.default);
 app.use((_req, res, _next) => {
     const err = new Error('Invalid route');
@@ -53,10 +63,4 @@ httpserver.listen(4000, () => __awaiter(void 0, void 0, void 0, function* () {
     console.log('Connected to Database');
     console.log('Listening at PORT 4000');
 }));
-const sendData = (socket) => {
-    socket.emit('data', Array.from({ length: 8 }, () => Math.floor(Math.random() * 590) + 10));
-    setTimeout(() => {
-        sendData(socket);
-    }, 1000);
-};
 //# sourceMappingURL=index.js.map
