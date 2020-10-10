@@ -5,6 +5,7 @@ import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import socketio, { Socket } from 'socket.io';
 import vitalModel from './models/vitals';
+import path from 'path';
 
 const app = express();
 const httpserver = require('http').createServer(app);
@@ -38,6 +39,10 @@ app.use((req: express.Request, res: express.Response, next: express.NextFunction
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('../client/build'));
+
+  app.get("*", (_, res) => {
+    res.sendFile(path.resolve(__dirname, "../client", "build", "index.html"));
+  });
 }
 
 const io = socketio(httpserver);

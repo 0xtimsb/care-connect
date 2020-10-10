@@ -19,6 +19,7 @@ const body_parser_1 = __importDefault(require("body-parser"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const socket_io_1 = __importDefault(require("socket.io"));
 const vitals_1 = __importDefault(require("./models/vitals"));
+const path_1 = __importDefault(require("path"));
 const app = express_1.default();
 const httpserver = require('http').createServer(app);
 const PORT = process.env.PORT || 8080;
@@ -37,6 +38,9 @@ app.use((req, res, next) => {
 });
 if (process.env.NODE_ENV === 'production') {
     app.use(express_1.default.static('../client/build'));
+    app.get("*", (_, res) => {
+        res.sendFile(path_1.default.resolve(__dirname, "../client", "build", "index.html"));
+    });
 }
 const io = socket_io_1.default(httpserver);
 const userSocket = io.of('/');
