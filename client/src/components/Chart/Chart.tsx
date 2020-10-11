@@ -50,6 +50,7 @@ const Chart = ({
 				type='number'
 				domain={[`dataMin - 50`, `dataMax + 50`]}
 				unit={y_unit}
+				width={120}
 			/>
 			<Tooltip formatter={(v, n) => [v, name]} />
 			<CartesianGrid opacity={0.05} />

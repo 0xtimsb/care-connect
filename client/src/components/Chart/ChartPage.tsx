@@ -83,7 +83,7 @@ const ChartPage = () => {
 				y_key='Heart_rate'
 				color='#e0685e'
 				stroke='#ffa59e'
-				y_unit=''
+				y_unit=' BPM'
 				name='Heart Rate'
 			/>
 			<Header>Diastolic Blood Pressure</Header>
@@ -93,7 +93,7 @@ const ChartPage = () => {
 				y_key='diastoli_bp'
 				color='#5ce0ae'
 				stroke='#9effda'
-				y_unit=''
+				y_unit=' mmHG'
 				name='Diastolic BP'
 			/>
 			<Header>Systolic Blood Pressure</Header>
@@ -103,7 +103,7 @@ const ChartPage = () => {
 				y_key='systolic_bp'
 				color='#9d59f0'
 				stroke='#ca9eff'
-				y_unit=''
+				y_unit=' mmHG'
 				name='Systolic BP'
 			/>
 		</Root>
