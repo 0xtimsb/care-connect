@@ -22,7 +22,7 @@ const App = () => {
 	useEffect(() => {
 		if (!userData && getCookie('token')) {
 			axios
-				.get('', {
+				.get('user', {
 					headers: {
 						Authorization: `bearer ${getCookie('token')}`,
 					},

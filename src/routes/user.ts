@@ -26,40 +26,48 @@ router.post('/signup', async (req, res) => {
           const token: string = await jwt.sign({ email: createdUser.email, userid: createdUser._id }, process.env.JWT_TOKEN!, {
             expiresIn: '24h',
           });
-          res.status(201).json({error: null , data:{userData:{
-            _id: createdUser._id,
-            name: createdUser.name,
-            age: createdUser.age,
-            weight: createdUser.weight,
-            height: createdUser.height,
-            phoneNum:createdUser.phoneNum,
-            email: createdUser.email,
-          },token:token}});
+          res.status(201).json({
+            error: null, data: {
+              userData: {
+                _id: createdUser._id,
+                name: createdUser.name,
+                age: createdUser.age,
+                weight: createdUser.weight,
+                height: createdUser.height,
+                phoneNum: createdUser.phoneNum,
+                email: createdUser.email,
+              }, token: token
+            }
+          });
         } else {
-          res.status(500).json({error: "Password hashing error", data:null});
+          res.status(500).json({ error: "Something went wrong.", data: null });
         }
       } catch (err) {
-        res.status(500).json({error: err.message, data:null});
+        res.status(500).json({ error: err.message, data: null });
       }
     });
   } else {
-    res.status(404).json({error: "This email already exists", data:null});
+    res.status(404).json({ error: "Email already exists.", data: null });
   }
 });
 
-router.get('/', auth,async (req, res) => {
+router.get('/user', auth, async (req, res) => {
   const user = await userModel.findOne({ email: req.user.email });
-  if(user === null) res.status(404).json({error: "User not found", data:null});
-  else{
-    res.status(201).json({error: null , data:{userData:{
-      _id: user._id,
-      name: user.name,
-      age: user.age,
-      weight: user.weight,
-      height: user.height,
-      phoneNum:user.phoneNum,
-      email: user.email,
-    }}});
+  if (user === null) res.status(404).json({ error: "User not found.", data: null });
+  else {
+    res.status(201).json({
+      error: null, data: {
+        userData: {
+          _id: user._id,
+          name: user.name,
+          age: user.age,
+          weight: user.weight,
+          height: user.height,
+          phoneNum: user.phoneNum,
+          email: user.email,
+        }
+      }
+    });
   }
 });
 
@@ -67,43 +75,47 @@ router.get('/', auth,async (req, res) => {
 router.post('/login', async (req, res) => {
   try {
     const user = await userModel.findOne({ email: req.body.loginEmail });
-    if (user === null) res.status(404).json({ error: `No user found with this email id ${req.body.loginEmail}`, data:null });
+    if (user === null) res.status(404).json({ error: `User not found.`, data: null });
     else {
       bcrypt.compare(req.body.loginPassword, user.password, (err, pass) => {
         if (err || pass == false) {
-          res.status(404).json({ error: "Incorrect password", data:null });
+          res.status(404).json({ error: "Incorrect password.", data: null });
         } else {
           const token: string = jwt.sign({ email: user.email, userid: user._id }, process.env.JWT_TOKEN!, {
             expiresIn: '72h',
           });
-          res.status(201).json({error: null , data:{userData:{
-            _id: user._id,
-            name: user.name,
-            age: user.age,
-            weight: user.weight,
-            height: user.height,
-            phoneNum:user.phoneNum,
-            email: user.email,
-          },token:token}});
+          res.status(201).json({
+            error: null, data: {
+              userData: {
+                _id: user._id,
+                name: user.name,
+                age: user.age,
+                weight: user.weight,
+                height: user.height,
+                phoneNum: user.phoneNum,
+                email: user.email,
+              }, token: token
+            }
+          });
         }
       });
     }
   } catch (err) {
-    res.status(500).json({error: err.message, data:null});
+    res.status(500).json({ error: err.message, data: null });
   }
 });
 
-router.patch('/editprofile/:userid', auth , async (req, res) => {
+router.patch('/editprofile/:userid', auth, async (req, res) => {
   try {
     const updatedUser: any = {};
     for (let item of req.body) {
       updatedUser[item.method] = item.value;
     }
     const updatedValue = await userModel.updateOne({ _id: req.params.userid }, { $set: updatedUser });
-    if(updatedValue.n === 1) res.status(201).json({error: null, data: {userData:updatedValue}});
-    else res.status(500).json({error: 'User data not updated', data:null});
+    if (updatedValue.n === 1) res.status(201).json({ error: null, data: { userData: updatedValue } });
+    else res.status(500).json({ error: 'Something went wrong.', data: null });
   } catch (err) {
-    res.status(500).json({error: err.message, data:null});
+    res.status(500).json({ error: err.message, data: null });
   }
 });
 

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import io from 'socket.io-client';
 
 import Chart from 'components/Chart/Chart';
@@ -33,7 +33,9 @@ const ChartPage = () => {
 	const [seconds, setSeconds] = useState(0);
 
 	useEffect(() => {
-		const socket = io('http://localhost:4000/');
+		const socket = io(
+			'https://careconnectapp.herokuapp.com/' || 'http://localhost:8080/'
+		);
 		socket.on('data', (res: dataPoint[]) => {
 			setResponse((r: dataPoint[]) => [...r, ...res]);
 		});
@@ -81,7 +83,8 @@ const ChartPage = () => {
 				y_key='Heart_rate'
 				color='#e0685e'
 				stroke='#ffa59e'
-				y_unit=''
+				y_unit=' BPM'
+				name='Heart Rate'
 			/>
 			<Header>Diastolic Blood Pressure</Header>
 			<Chart
@@ -90,7 +93,8 @@ const ChartPage = () => {
 				y_key='diastoli_bp'
 				color='#5ce0ae'
 				stroke='#9effda'
-				y_unit=''
+				y_unit=' mmHG'
+				name='Diastolic BP'
 			/>
 			<Header>Systolic Blood Pressure</Header>
 			<Chart
@@ -99,7 +103,8 @@ const ChartPage = () => {
 				y_key='systolic_bp'
 				color='#9d59f0'
 				stroke='#ca9eff'
-				y_unit=''
+				y_unit=' mmHG'
+				name='Systolic BP'
 			/>
 		</Root>
 	);
