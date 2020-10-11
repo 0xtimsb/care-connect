@@ -62,21 +62,13 @@ $ yarn run start // this will run the files in docs, this behavior is exactly th
 
 ## Server-side usage(PORT: 4000)
 
-### Prepare your secret
-
-run the script at the first level:
-
-(You need to add a MONGO_PWD in .env to connect to MongoDB)
-
-### Start
-
 ```terminal
 $ cd server   // go to server folder
 $ yarn install   // yarn install pacakges
 $ yarn start // run it locally
 ```
 
-## Deploy Server to [Heroku](https://dashboard.heroku.com/)
+## Deploy Server to [careconnectapp.herokuapp.com](https://careconnectapp.herokuapp.com/)
 
 ```terminal
 $ yarn i -g heroku
