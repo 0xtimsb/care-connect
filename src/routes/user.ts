@@ -51,7 +51,7 @@ router.post('/signup', async (req, res) => {
   }
 });
 
-router.get('/', auth, async (req, res) => {
+router.get('/user', auth, async (req, res) => {
   const user = await userModel.findOne({ email: req.user.email });
   if (user === null) res.status(404).json({ error: "User not found.", data: null });
   else {

@@ -66,7 +66,7 @@ router.post('/signup', (req, res) => __awaiter(void 0, void 0, void 0, function*
         res.status(404).json({ error: "Email already exists.", data: null });
     }
 }));
-router.get('/', auth_1.default, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.get('/user', auth_1.default, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const user = yield users_1.default.findOne({ email: req.user.email });
     if (user === null)
         res.status(404).json({ error: "User not found.", data: null });

@@ -22,19 +22,20 @@ const App = () => {
 	useEffect(() => {
 		if (!userData && getCookie('token')) {
 			axios
-				.get('', {
+				.get('user', {
 					headers: {
 						Authorization: `bearer ${getCookie('token')}`,
 					},
 				})
 				.then(({ data }) => {
 					handleUserData({ ...data.userData });
+					console.log(data);
 				})
 				.catch((err) => {
 					console.log(err);
 				});
 		}
-	}, [userData]);
+	}, []);
 
 	return (
 		<Router>
