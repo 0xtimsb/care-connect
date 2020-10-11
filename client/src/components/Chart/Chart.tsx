@@ -52,7 +52,7 @@ const Chart = ({
 				unit={y_unit}
 				width={120}
 			/>
-			<Tooltip formatter={(v, n) => [v, name]} />
+			<Tooltip formatter={(v, n) => [v, name]} isAnimationActive={false} />
 			<CartesianGrid opacity={0.05} />
 			<Area
 				type='monotone'
