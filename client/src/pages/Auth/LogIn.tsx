@@ -21,6 +21,7 @@ interface IFormInput {
 const Root = styled(Panel)`
 	padding: 16px;
 	width: 420px;
+	box-shadow: ${(p) => p.theme.shadows.xl};
 `;
 
 const Form = styled.form`
