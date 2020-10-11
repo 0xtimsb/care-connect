@@ -39,7 +39,9 @@ router.post('/signup', (req, res) => __awaiter(void 0, void 0, void 0, function*
                     const token = yield jsonwebtoken_1.default.sign({ email: createdUser.email, userid: createdUser._id }, process.env.JWT_TOKEN, {
                         expiresIn: '24h',
                     });
-                    res.status(201).json({ error: null, data: { userData: {
+                    res.status(201).json({
+                        error: null, data: {
+                            userData: {
                                 _id: createdUser._id,
                                 name: createdUser.name,
                                 age: createdUser.age,
@@ -47,10 +49,12 @@ router.post('/signup', (req, res) => __awaiter(void 0, void 0, void 0, function*
                                 height: createdUser.height,
                                 phoneNum: createdUser.phoneNum,
                                 email: createdUser.email,
-                            }, token: token } });
+                            }, token: token
+                        }
+                    });
                 }
                 else {
-                    res.status(500).json({ error: "Password hashing error", data: null });
+                    res.status(500).json({ error: "Something went wrong.", data: null });
                 }
             }
             catch (err) {
@@ -59,15 +63,17 @@ router.post('/signup', (req, res) => __awaiter(void 0, void 0, void 0, function*
         }));
     }
     else {
-        res.status(404).json({ error: "This email already exists", data: null });
+        res.status(404).json({ error: "Email already exists.", data: null });
     }
 }));
 router.get('/', auth_1.default, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const user = yield users_1.default.findOne({ email: req.user.email });
     if (user === null)
-        res.status(404).json({ error: "User not found", data: null });
+        res.status(404).json({ error: "User not found.", data: null });
     else {
-        res.status(201).json({ error: null, data: { userData: {
+        res.status(201).json({
+            error: null, data: {
+                userData: {
                     _id: user._id,
                     name: user.name,
                     age: user.age,
@@ -75,24 +81,28 @@ router.get('/', auth_1.default, (req, res) => __awaiter(void 0, void 0, void 0, 
                     height: user.height,
                     phoneNum: user.phoneNum,
                     email: user.email,
-                } } });
+                }
+            }
+        });
     }
 }));
 router.post('/login', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const user = yield users_1.default.findOne({ email: req.body.loginEmail });
         if (user === null)
-            res.status(404).json({ error: `No user found with this email id ${req.body.loginEmail}`, data: null });
+            res.status(404).json({ error: `User not found.`, data: null });
         else {
             bcrypt_1.default.compare(req.body.loginPassword, user.password, (err, pass) => {
                 if (err || pass == false) {
-                    res.status(404).json({ error: "Incorrect password", data: null });
+                    res.status(404).json({ error: "Incorrect password.", data: null });
                 }
                 else {
                     const token = jsonwebtoken_1.default.sign({ email: user.email, userid: user._id }, process.env.JWT_TOKEN, {
                         expiresIn: '72h',
                     });
-                    res.status(201).json({ error: null, data: { userData: {
+                    res.status(201).json({
+                        error: null, data: {
+                            userData: {
                                 _id: user._id,
                                 name: user.name,
                                 age: user.age,
@@ -100,7 +110,9 @@ router.post('/login', (req, res) => __awaiter(void 0, void 0, void 0, function* 
                                 height: user.height,
                                 phoneNum: user.phoneNum,
                                 email: user.email,
-                            }, token: token } });
+                            }, token: token
+                        }
+                    });
                 }
             });
         }
@@ -119,7 +131,7 @@ router.patch('/editprofile/:userid', auth_1.default, (req, res) => __awaiter(voi
         if (updatedValue.n === 1)
             res.status(201).json({ error: null, data: { userData: updatedValue } });
         else
-            res.status(500).json({ error: 'User data not updated', data: null });
+            res.status(500).json({ error: 'Something went wrong.', data: null });
     }
     catch (err) {
         res.status(500).json({ error: err.message, data: null });

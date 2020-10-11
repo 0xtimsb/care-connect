@@ -97,6 +97,8 @@ const Link = styled(RouterLink)`
 const SignUp = ({ handleUserData, history }: any) => {
 	const [loading, setLoading] = useState(false);
 
+	const [error, setError] = useState(null);
+
 	const { register, errors, handleSubmit } = useForm<IFormInput>({
 		mode: 'all',
 	});
@@ -118,8 +120,8 @@ const SignUp = ({ handleUserData, history }: any) => {
 				setCookie('token', data.data.token);
 				handleUserData({ ...data.data.userData });
 			})
-			.catch((err) => {
-				console.log(err);
+			.catch(({ response }) => {
+				setError(response.data.error);
 				setLoading(false);
 			});
 	};
@@ -132,6 +134,7 @@ const SignUp = ({ handleUserData, history }: any) => {
 		<Root>
 			<Form onSubmit={handleSubmit(onSubmit)}>
 				<Header>Create an account</Header>
+				<Error>{error}</Error>
 				<MinLabel mb='7px' mt='15px'>
 					Name
 				</MinLabel>

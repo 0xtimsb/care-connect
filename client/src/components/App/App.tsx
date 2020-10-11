@@ -34,7 +34,7 @@ const App = () => {
 					console.log(err);
 				});
 		}
-	}, []);
+	}, [userData]);
 
 	return (
 		<Router>
