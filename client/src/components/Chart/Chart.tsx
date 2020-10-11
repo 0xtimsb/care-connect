@@ -17,6 +17,7 @@ interface ChartProps {
 	color: string;
 	stroke: string;
 	y_unit: string;
+	name: string;
 }
 
 const Chart = ({
@@ -26,6 +27,7 @@ const Chart = ({
 	color,
 	stroke,
 	y_unit,
+	name,
 }: ChartProps) => {
 	const { width } = useWindowSize();
 
@@ -49,7 +51,7 @@ const Chart = ({
 				domain={[`dataMin - 50`, `dataMax + 50`]}
 				unit={y_unit}
 			/>
-			<Tooltip />
+			<Tooltip formatter={(v, n) => [v, name]} />
 			<CartesianGrid opacity={0.05} />
 			<Area
 				type='monotone'
