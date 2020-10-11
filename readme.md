@@ -43,6 +43,7 @@ client/
    yarn.lock
 dist/
 screentshots/
+ml-model/
 src/
    auth/
    models/
