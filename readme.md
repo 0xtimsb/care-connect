@@ -105,3 +105,15 @@ $ yarn run deploy:heroku
 | "typescript": "^4.0.3"        | "typescript": "^4.0.3"   |
 
 # Screenshots of this project
+
+## Signup Page
+
+![](screenshots/signup.JPG)
+
+## Login Page
+
+![](screenshots/login.JPG)
+
+## Home Page
+
+![](screenshots/main.JPG)
