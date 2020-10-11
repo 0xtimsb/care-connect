@@ -43,6 +43,14 @@ if (process.env.NODE_ENV === 'production') {
   app.get("/", (_, res) => {
     res.sendFile(path.resolve(__dirname, "../client", "build", "index.html"));
   });
+
+  app.get("/signup", (_, res) => {
+    res.sendFile(path.resolve(__dirname, "../client", "build", "index.html"));
+  });
+
+  app.get("/login", (_, res) => {
+    res.sendFile(path.resolve(__dirname, "../client", "build", "index.html"));
+  });
 }
 
 const io = socketio(httpserver);

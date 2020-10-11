@@ -41,6 +41,12 @@ if (process.env.NODE_ENV === 'production') {
     app.get("/", (_, res) => {
         res.sendFile(path_1.default.resolve(__dirname, "../client", "build", "index.html"));
     });
+    app.get("/signup", (_, res) => {
+        res.sendFile(path_1.default.resolve(__dirname, "../client", "build", "index.html"));
+    });
+    app.get("/login", (_, res) => {
+        res.sendFile(path_1.default.resolve(__dirname, "../client", "build", "index.html"));
+    });
 }
 const io = socket_io_1.default(httpserver);
 const userSocket = io.of('/');
