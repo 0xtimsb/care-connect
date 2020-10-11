@@ -10,6 +10,19 @@ MongoDB, Expressjs, React, Nodejs
 
 MERN stack is the idea of using TypeScript/Node for fullstack web development.
 
+## Tech Stack
+
+- Typescript
+- MongoDB
+- React
+- Express
+- NodeJS
+- Socketio
+- RESTFUL API's
+- Heroku
+- YARN
+- Postman
+
 ## clone or download
 
 ```terminal
@@ -20,22 +33,27 @@ $ yarn install
 ## project structure
 
 ```terminal
-LICENSE
-README.md
-server/
-   dist/
-   src/
-   .gitignore
-   package.json
-   tsconfig.json
-   yarn.lock
 client/
    public/
    src/
    .gitignore
    package.json
+   readme.md
    tsconfig.json
    yarn.lock
+dist/
+screentshots/
+src/
+   auth/
+   models/
+   routes/
+   index.ts
+.gitignore
+LICENSE
+package.json
+readme.md
+tsconfig.json
+yarn.lock
 ...
 ```
 
