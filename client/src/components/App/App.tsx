@@ -28,7 +28,7 @@ const App = () => {
 					},
 				})
 				.then(({ data }) => {
-					handleUserData({ ...data.data.userData });
+					handleUserData({ ...data.userData });
 				})
 				.catch((err) => {
 					console.log(err);
