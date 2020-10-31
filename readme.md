@@ -23,14 +23,14 @@ MERN stack is the idea of using TypeScript/Node for fullstack web development.
 - YARN
 - Postman
 
-## clone or download
+## Clone OR Download
 
 ```terminal
 $ git clone https://github.com/smitbarmase/care-connect.git
 $ yarn install
 ```
 
-## project structure
+## Project Structure
 
 ```terminal
 client/
@@ -81,7 +81,7 @@ $ yarn run build // this will compile the react code using webpack and generate 
 $ yarn run start // this will run the files in docs, this behavior is exactly the same how gh-pages will run your static site
 ```
 
-## Server-side usage(PORT: 4000)
+## Server-Side Usage(PORT: 4000)
 
 ```terminal
 $ cd server   // go to server folder
