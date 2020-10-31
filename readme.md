@@ -3,7 +3,7 @@
 </h1>
 
 <p align="center">
-MongoDB, Express, React, Node, Socketio 
+Your Personal Health Care Companion
 </p>
 
 ## Tech Stack
