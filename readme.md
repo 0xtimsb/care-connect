@@ -1,14 +1,10 @@
 <h1 align="center">
 🌐 Care Connect
 </h1>
+
 <p align="center">
-MongoDB, Expressjs, React, Nodejs
+MongoDB, Express, React, Node, Socketio 
 </p>
-
-> MERN is a fullstack implementation in MongoDB, Expressjs, React, Nodejs,
-> SocketIO
-
-MERN stack is the idea of using TypeScript/Node for fullstack web development.
 
 ## Tech Stack
 
@@ -58,18 +54,18 @@ yarn.lock
 ...
 ```
 
-# Usage (run fullstack app on your machine)
+# Usage
 
-## Prerequirements
+## Pre-Requirements
 
 - [MongoDB](https://www.mongodb.com/)
 - [Node](https://nodejs.org/en/) ^10.0.0
 - [yarn](https://yarnpkg.com/)
 
-notice, you need client and server runs concurrently in different terminal
-session, in order to make them talk to each other
+Notice, you need client and server runs concurrently in different terminal
+session, in order to make them talk to each other.
 
-## Client-side usage(PORT: 3000)
+## Client-Side Usage (PORT: 3000)
 
 ```terminal
 $ cd client   // go to client folder
@@ -81,7 +77,7 @@ $ yarn run build // this will compile the react code using webpack and generate 
 $ yarn run start // this will run the files in docs, this behavior is exactly the same how gh-pages will run your static site
 ```
 
-## Server-Side Usage(PORT: 4000)
+## Server-Side Usage (PORT: 4000)
 
 ```terminal
 $ cd server   // go to server folder
@@ -103,7 +99,7 @@ $ pwd
 $ yarn run deploy:heroku
 ```
 
-# Dependencies(tech-stacks)
+# Dependencies
 
 | Client-side                   | Server-side              |
 | ----------------------------- | ------------------------ |
@@ -117,7 +113,7 @@ $ yarn run deploy:heroku
 | socketio-client: "^2.3.1"     | "concurrently": "^5.3.0" |
 | "typescript": "^4.0.3"        | "typescript": "^4.0.3"   |
 
-# Screenshots of this project
+# Screenshots
 
 ## Signup Page
 
